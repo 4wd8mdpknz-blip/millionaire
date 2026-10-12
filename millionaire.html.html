@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Wants to Be a Millionaire? Grammar Grade 5</title>
+<style>
+:root{--bg:#e9eefc;--panel:#14245a;--panel2:#1c3080;--ink:#fff;--text:#14245a;--gold:#f5c542;--ok:#1f9d55;--bad:#d64545;--line:#4a63c2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070d26;--panel:#0f1b4d;--panel2:#18287a;--text:#fff}}
+:root[data-theme="dark"]{--bg:#070d26;--panel:#0f1b4d;--panel2:#18287a;--text:#fff}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+h1{margin:4px 0 0;text-align:center;font-size:clamp(22px,5vw,32px);color:var(--panel)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h1{color:var(--gold)}}
+:root[data-theme="dark"] h1{color:var(--gold)}
+.sub{text-align:center;margin:0 0 12px;opacity:.75}
+.game{display:grid;grid-template-columns:1fr 190px;gap:14px}
+@media (max-width:720px){.game{grid-template-columns:1fr}.ladder{order:-1;display:flex;overflow-x:auto;gap:4px;padding:6px}.ladder li{flex:0 0 auto}}
+.main{background:var(--panel);color:var(--ink);border-radius:18px;padding:16px;border:2px solid var(--line)}
+.lifes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.life{font:inherit;font-weight:700;background:var(--panel2);color:var(--ink);border:2px solid var(--gold);border-radius:999px;padding:6px 14px;cursor:pointer}
+.life:disabled{opacity:.35;text-decoration:line-through;cursor:default}
+.meta{display:flex;justify-content:space-between;font-size:14px;opacity:.85;margin-bottom:8px}
+.q{font-size:clamp(20px,4.6vw,28px);font-weight:700;text-align:center;background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:18px 12px;margin:0 0 14px;min-height:90px;display:grid;place-items:center}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{font:inherit;font-size:clamp(17px,3.8vw,22px);color:var(--ink);background:var(--panel2);border:2px solid var(--line);border-radius:999px;padding:12px 18px;text-align:left;cursor:pointer}
+.opt b{color:var(--gold);margin-right:8px}
+.opt:hover:not(:disabled){border-color:var(--gold)}
+.opt.sel{background:var(--gold);color:#14245a}.opt.sel b{color:#14245a}
+.opt.ok{background:var(--ok);border-color:var(--ok)}.opt.ok b{color:#fff}
+.opt.bad{background:var(--bad);border-color:var(--bad)}.opt.bad b{color:#fff}
+.opt.gone{visibility:hidden}
+.opt:disabled{cursor:default}
+.note{min-height:64px;margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;font-size:15px}
+.bars{display:flex;gap:10px;align-items:flex-end;height:70px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:12px}
+.bar i{display:block;width:100%;background:var(--gold);border-radius:4px 4px 0 0}
+.actions{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:800;border:0;border-radius:12px;padding:10px 22px;cursor:pointer;background:var(--gold);color:#14245a}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.ladder{list-style:none;margin:0;padding:8px;background:var(--panel);color:var(--ink);border-radius:18px;border:2px solid var(--line);display:flex;flex-direction:column-reverse;gap:3px;align-self:start}
+.ladder li{display:flex;justify-content:space-between;gap:8px;padding:4px 10px;border-radius:8px;font-size:14px;opacity:.7}
+.ladder li.safe{color:var(--gold);font-weight:800;opacity:1}
+.ladder li.done{opacity:.35}
+.ladder li.now{background:var(--gold);color:#14245a;opacity:1;font-weight:800}
+.end{text-align:center;padding:24px 8px}.end h2{font-size:30px;color:var(--gold);margin:0 0 6px}.end p{font-size:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>💰 Who Wants to Be a Millionaire?</h1>
+<p class="sub">English Grammar · Grade 5 · قواعد اللغة الإنجليزية للصف الخامس</p>
+<div class="game">
+ <section class="main" id="main" aria-live="polite"></section>
+ <ol class="ladder" id="ladder"></ol>
+</div>
+</div>
+<script>
+const Q=[
+{q:'I ___ a student.',o:['am','is','are','be'],a:0},
+{q:'She ___ a new bag.',o:['have','has','having','haves'],a:1},
+{q:'What is the plural of "book"?',o:['bookes','books','bookies','book'],a:1},
+{q:'It is ___ apple.',o:['a','an','the a','two'],a:1},
+{q:'They ___ playing football now.',o:['is','am','are','be'],a:2},
+{q:'What is the plural of "child"?',o:['childs','childes','children','childrens'],a:2},
+{q:'He ___ to school every day.',o:['go','goes','going','gone'],a:1},
+{q:'The books are ___ the bag.',o:['in','on','at','under the'],a:0},
+{q:'Yesterday I ___ football with my friends.',o:['play','plays','played','playing'],a:2},
+{q:'This is Ali. ___ bag is blue.',o:['He','His','Him','Her'],a:1},
+{q:'___ are my shoes. (they are near me)',o:['This','That','These','It'],a:2},
+{q:'She ___ like milk.',o:["don't","doesn't","isn't","aren't"],a:1},
+{q:'Sara is ___ than Noor.',o:['tall','tallest','taller','more tall'],a:2},
+{q:'___ there any water in the bottle?',o:['Is','Are','Do','Does'],a:0},
+{q:'Last week we ___ to the beach.',o:['go','goed','went','gone'],a:2}
+];
+const P=[100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000];
+const L='ABCD';
+const fmt=n=>n.toLocaleString('en-US');
+let lvl,cur,hidden,locked,used,main=document.getElementById('main'),ladder=document.getElementById('ladder');
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(){lvl=0;used={f:false,a:false,p:false};load();}
+function safePrize(){return lvl>=10?P[9]:lvl>=5?P[4]:0}
+function load(){
+ const q=Q[lvl];cur={q:q.q,o:shuffle(q.o.map((t,i)=>({t,c:i===q.a})))};hidden=[];locked=false;render();
+}
+function render(){
+ ladder.innerHTML=P.map((p,i)=>'<li class="'+((i===4||i===9)?'safe ':'')+(i<lvl?'done ':'')+(i===lvl?'now':'')+'"><span>'+(i+1)+'</span><span>'+fmt(p)+'</span></li>').join('');
+ main.innerHTML='<div class="lifes">'+
+  '<button class="life" id="lf" '+(used.f?'disabled':'')+'>50:50</button>'+
+  '<button class="life" id="la" '+(used.a?'disabled':'')+'>👥 Ask the audience</button>'+
+  '<button class="life" id="lp" '+(used.p?'disabled':'')+'>📞 Phone a friend</button></div>'+
+  '<div class="meta"><span>Question '+(lvl+1)+' of 15</span><span>For '+fmt(P[lvl])+' points</span></div>'+
+  '<p class="q">'+cur.q+'</p><div class="opts">'+cur.o.map((o,i)=>'<button class="opt" data-i="'+i+'"><b>'+L[i]+':</b>'+o.t+'</button>').join('')+'</div>'+
+  '<div class="note" id="note">Choose the correct answer. Good luck!</div>'+
+  '<div class="actions"><button class="btn alt" id="walk">Take the money ('+fmt(lvl?P[lvl-1]:0)+')</button></div>';
+ main.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.i));
+ document.getElementById('lf').onclick=fifty;document.getElementById('la').onclick=audience;document.getElementById('lp').onclick=phone;
+ document.getElementById('walk').onclick=()=>finish('You walked away!',lvl?P[lvl-1]:0);
+}
+const optEls=()=>[...main.querySelectorAll('.opt')];
+const note=h=>document.getElementById('note').innerHTML=h;
+function visible(){return cur.o.map((o,i)=>i).filter(i=>!hidden.includes(i))}
+function fifty(){if(locked||used.f)return;used.f=true;const wrong=shuffle(cur.o.map((o,i)=>i).filter(i=>!cur.o[i].c));hidden=wrong.slice(0,2);
+ optEls().forEach((e,i)=>{if(hidden.includes(i))e.classList.add('gone')});document.getElementById('lf').disabled=true;note('Two wrong answers were removed.');}
+function audience(){if(locked||used.a)return;used.a=true;document.getElementById('la').disabled=true;
+ const vis=visible(),ci=cur.o.findIndex(o=>o.c),top=Math.max(35,75-lvl*3)+Math.floor(Math.random()*10);
+ const w=vis.filter(i=>i!==ci);let rest=100-top;const pc={};pc[ci]=top;
+ w.forEach((i,k)=>{const v=k===w.length-1?rest:Math.floor(Math.random()*rest*.7);pc[i]=v;rest-=v});
+ note('<div class="bars">'+vis.sort().map(i=>'<div class="bar"><span>'+pc[i]+'%</span><i style="height:'+Math.max(4,pc[i]*.55)+'px"></i><b>'+L[i]+'</b></div>').join('')+'</div>');}
+function phone(){if(locked||used.p)return;used.p=true;document.getElementById('lp').disabled=true;
+ const vis=visible(),ci=cur.o.findIndex(o=>o.c);let g=ci;if(Math.random()>.8-lvl*.01){const w=vis.filter(i=>i!==ci);g=w[Math.floor(Math.random()*w.length)]}
+ note('📞 Your friend says: "I think the answer is <b>'+L[g]+'</b>, but I am not 100% sure."');}
+function answer(i){
+ if(locked||hidden.includes(i))return;locked=true;const els=optEls();els.forEach(e=>e.disabled=true);els[i].classList.add('sel');
+ setTimeout(()=>{
+  const ci=cur.o.findIndex(o=>o.c);els[ci].classList.remove('sel');els[ci].classList.add('ok');
+  if(i===ci){
+   const last=lvl===14;
+   note('<b>✅ Correct!</b> You have '+fmt(P[lvl])+' points.');
+   const a=main.querySelector('.actions');a.insertAdjacentHTML('afterbegin','<button class="btn" id="nx">'+(last?'Finish':'Next question ▶')+'</button>');
+   document.getElementById('nx').onclick=()=>{if(last)finish('🎉 You are a Millionaire!',P[14]);else{lvl++;load();}};
+   document.getElementById('walk').style.display='none';
+  }else{els[i].classList.remove('sel');els[i].classList.add('bad');
+   note('<b>❌ Wrong answer.</b> The correct answer is '+L[ci]+': '+cur.o[ci].t);
+   const a=main.querySelector('.actions');a.insertAdjacentHTML('afterbegin','<button class="btn" id="nx">See result</button>');
+   document.getElementById('nx').onclick=()=>finish('Game over',safePrize());document.getElementById('walk').style.display='none';}
+ },1100);
+}
+function finish(title,prize){
+ main.innerHTML='<div class="end"><h2>'+title+'</h2><p>You take home <b>'+fmt(prize)+'</b> points.</p><div class="actions"><button class="btn" id="again">Play again</button></div></div>';
+ document.getElementById('again').onclick=start;
+}
+start();
+</script>
+</body>
+</html>
